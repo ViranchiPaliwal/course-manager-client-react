@@ -24,6 +24,7 @@ class CourseList extends React.Component {
 
     render() {
         return (
+
             <div>
                 <h2>Course List</h2>
                 <table className='table'>
