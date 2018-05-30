@@ -9,12 +9,14 @@ export default class ModuleList extends React.Component {
             <input value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"/>
             <button onClick={this.createModule} className="btn btn-primary btn-block">
                 <i className="fa fa-plus"></i></button>
+
+            {this.renderListOfModules()}
             </div>
     )}
 
     constructor(props) {
         super(props);
-        this.state = {courseId: '', module: {title: ''}};
+        this.state = {courseId: '', module: {title: ''}, modules: []};
         this.setCourseId =
             this.setCourseId.bind(this);
         this.setModuleTitle =
@@ -22,14 +24,15 @@ export default class ModuleList extends React.Component {
         this.createModule =
             this.createModule.bind(this);
         this.moduleService = ModuleService.instance;
-
-
-
     }
 
     createModule() {
         this.moduleService.createModule
-        (this.state.courseId, this.state.module);
+        (this.state.courseId, this.state.module)
+            .then(() => {
+                this.findAllModulesForCourse
+                (this.state.courseId);
+            });
     }
 
     setModuleTitle(event) {
@@ -45,7 +48,28 @@ export default class ModuleList extends React.Component {
     }
     componentWillReceiveProps(newProps){
         this.setCourseId(newProps.courseId);
+        this.findAllModulesForCourse(newProps.courseId)
     }
+    findAllModulesForCourse(courseId) {
+        this.moduleService
+            .findAllModulesForCourse(courseId)
+            .then((modules) => {this.setModules(modules)});
+    }
+    setModules(modules) {
+        this.setState({modules: modules})
+    }
+
+    renderListOfModules() {
+        let modules = this.state.modules.map((module) => {
+            return <li key={module.id}>{module.title}</li>
+        });
+        return (
+            <ul>{modules}</ul>
+        )
+    }
+
+
+
 
 
 }
