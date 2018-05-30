@@ -1,4 +1,5 @@
 import React from 'react';
+import ModuleService from '../services/ModuleService'
 export default class ModuleList extends React.Component {
     render() {
         return (
@@ -20,12 +21,15 @@ export default class ModuleList extends React.Component {
             this.setModuleTitle.bind(this);
         this.createModule =
             this.createModule.bind(this);
+        this.moduleService = ModuleService.instance;
+
 
 
     }
 
     createModule() {
-        console.log(this.state);
+        this.moduleService.createModule
+        (this.state.courseId, this.state.module);
     }
 
     setModuleTitle(event) {
