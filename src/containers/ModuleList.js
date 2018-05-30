@@ -1,5 +1,7 @@
 import React from 'react';
 import ModuleService from '../services/ModuleService'
+import ModuleListItem from '../components/ModuleListItem';
+
 export default class ModuleList extends React.Component {
     render() {
         return (
@@ -61,7 +63,8 @@ export default class ModuleList extends React.Component {
 
     renderListOfModules() {
         let modules = this.state.modules.map((module) => {
-            return <li key={module.id}>{module.title}</li>
+            return <ModuleListItem key={module.id}
+                                   module={module}/>
         });
         return (
             <ul>{modules}</ul>

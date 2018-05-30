@@ -9,12 +9,20 @@ class CourseList extends React.Component {
         this.state = {courses: []};
         this.titleChanged = this.titleChanged.bind(this);
         this.createCourse = this.createCourse.bind(this);
+        this.deleteCourse = this.deleteCourse.bind(this);
     }
+
+    deleteCourse(courseId) {
+        this.courseService
+            .deleteCourse(courseId);
+    }
+
+
 
     renderCustomerRow(){
         let courses = this.state.courses.map(
             function (course) {
-                return <CourseRow key={course.id} course={course}/>
+                return <CourseRow key={course.id} course={course} delete={this.deleteCourse}/>
             }
         )
         return (
@@ -24,18 +32,22 @@ class CourseList extends React.Component {
 
     render() {
         return (
-
             <div>
                 <h2>Course List</h2>
                 <table className='table'>
                     <thead>
                     <tr>
-                        <th>Title</th>
-                    </tr>
-                    <tr>
                         <th><input onChange={this.titleChanged} className='form-control' id="titleFld"
                                    placeholder="cs101"/></th>
-                        <th><button onClick={this.createCourse} className='btn btn-primary'>Add</button></th>
+                        <th>
+                            <button onClick={this.createCourse} className='btn btn-primary'>Add</button>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <th>Owned By</th>
+                        <th>Last Modified by me</th>
+                        <th>&nbsp;</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -43,7 +55,7 @@ class CourseList extends React.Component {
                     </tbody>
                 </table>
             </div>
-        )
+        );
     }
 
     componentDidMount() {
