@@ -14,17 +14,17 @@ class CourseList extends React.Component {
 
     deleteCourse(courseId) {
         this.courseService
-            .deleteCourse(courseId);
+            .deleteCourse(courseId)
+            .then(() => {
+                this.findAllCourses();
+            });
     }
 
-
-
     renderCustomerRow(){
-        let courses = this.state.courses.map(
-            function (course) {
-                return <CourseRow key={course.id} course={course} delete={this.deleteCourse}/>
-            }
-        )
+        let courses = this.state.courses.map((course) => {
+            return <CourseRow course={course} key={course.id}
+                              delete={this.deleteCourse}/>
+        });
         return (
             courses
         )
