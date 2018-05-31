@@ -1,4 +1,5 @@
 import React from 'react';
+import LessonTabs from './LessonTabs'
 
 export default class ModuleEditor
     extends React.Component {
@@ -35,14 +36,8 @@ export default class ModuleEditor
 
     render() { return(
         <div>
-        <h1>Module Editor</h1>
-        {this.state.courseId},
-        {this.state.moduleId}
-        <ul className="nav nav-tabs">
-            <li className="nav-item"><a className="nav-link active"
-                                    href="#">Active Tab</a></li>
-            <li className="nav-item"><a className="nav-link"
-                                    href="#">Another Tab</a></li>
-        </ul>
+            <LessonTabs courseId={this.state.courseId} moduleId={this.state.moduleId} />
         </div>
-    );}}
+    )
+    }
+}
