@@ -32,16 +32,10 @@ export default class CourseEditor
     render() {
         return (
 
-            <div className="row">
+            <div>
                 <h2> Editing course: {this.state.courseId}</h2>
-
-                <div className="col-4">
                     <ModuleList
                         courseId={this.state.courseId}/>
-                </div>
-                <div className="col-8">
-
-                </div>
             </div>
         );
     }

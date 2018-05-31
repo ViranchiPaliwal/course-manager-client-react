@@ -1,19 +1,30 @@
 import React from 'react';
 import ModuleService from '../services/ModuleService'
 import ModuleListItem from '../components/ModuleListItem';
+import ModuleEditor from './ModuleEditor'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 export default class ModuleList extends React.Component {
     render() {
         return (
+            <Router>
             <div>
             <h4>Module List for courseId:
                 {this.state.courseId}</h4>
+            <div className="row">
+            <div className="col-4">
             <input value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"/>
             <button onClick={this.createModule} className="btn btn-primary btn-block">
-                <i className="fa fa-plus"></i></button>
-
-            {this.renderListOfModules()}
+            <i className="fa fa-plus"></i></button>
+                {this.renderListOfModules()}
             </div>
+            <div className="col-8">
+                <Route path="/course/:courseId/module/:moduleId"
+                       component={ModuleEditor}/>
+            </div>
+            </div>
+            </div>
+            </Router>
     )}
 
     constructor(props) {
@@ -65,9 +76,7 @@ export default class ModuleList extends React.Component {
 
     renderListOfModules() {
         let modules = this.state.modules.map((module) => {
-            return (
-                <ModuleListItem module={module} key={module.id}
-                                delete={this.deleteModule}/>)
+            return <ModuleListItem module={module} courseId={this.state.courseId} key={module.id} delete={this.deleteModule}/>
         });
         return (
             <ul className="list-group">{modules}</ul>
