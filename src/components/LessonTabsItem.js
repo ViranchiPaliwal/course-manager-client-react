@@ -8,16 +8,15 @@ export default class LessonTabItem
     }
     render() {
         return (
-            <Link to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lesson.id}`}>
             <li className="nav-item">
+                <Link to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lesson.id}`}>
                 {this.props.lesson.title}
+                </Link>
                 <span className='float-right'>
                 <i onClick={() =>
                 {this.props.delete(this.props.lesson.id)}} className="fa fa-trash"></i>
-                <i className="fa fa-pencil"></i>
                 </span>
             </li>
-            </Link>
         );
     }
 }

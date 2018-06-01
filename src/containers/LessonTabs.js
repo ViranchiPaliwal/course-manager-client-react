@@ -1,6 +1,8 @@
 import React from 'react';
 import LessonService from "../services/LessonService";
 import LessonTabsItem from "../components/LessonTabsItem";
+import TopicList from "./TopicList";
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 export default class LessonTabs extends React.Component {
 
@@ -67,8 +69,13 @@ export default class LessonTabs extends React.Component {
         )
     }
 
-    deleteLesson(){
-
+    deleteLesson(lessonId){
+        this.lessonService
+            .deleteLesson(lessonId)
+            .then(() => {
+                this.findAllLessonsForModule
+                (this.state.courseId, this.state.moduleId)
+            });
     }
 
     findAllLessonsForModule(courseId, moduleId) {
@@ -83,6 +90,7 @@ export default class LessonTabs extends React.Component {
 
     render(){
         return(
+            <Router>
             <div>
             <input value={this.state.lesson.title} onChange={this.setLessonTitle} placeholder="New Lesson"/>
             <button onClick= {this.createLesson} className="btn btn-primary btn-block">
@@ -90,7 +98,12 @@ export default class LessonTabs extends React.Component {
             <ul className="nav nav-tabs">
                 {this.renderListOfLessons()}
             </ul>
+                <ul>
+                    <Route exact path="/course/:courseId/module/:moduleId/lesson/:lessonId"
+                           component={TopicList}/>
+                </ul>
             </div>
+            </Router>
         )
     }
 }

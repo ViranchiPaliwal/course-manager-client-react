@@ -3,26 +3,33 @@ import ModuleService from '../services/ModuleService'
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleEditor from './ModuleEditor'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import ModuleListStyle from '../css/ModuleList.css'
 
 export default class ModuleList extends React.Component {
     render() {
         return (
             <Router>
-            <div>
-            <h4>Module List for courseId:
-                {this.state.courseId}</h4>
             <div className="row">
-            <div className="col-4">
-            <input value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"/>
-            <button onClick={this.createModule} className="btn btn-primary btn-block">
-            <i className="fa fa-plus"></i></button>
+            <div className="col-3">
+            <ul className='cm-ul-list list-group'>
+                <li>
+                    <div className="row">
+                        <div className="col-10" >
+                            <input value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"  className="form-control"></input>
+                        </div>
+                        <div>
+                            <button className="cm-add-button btn btn-primary float-right">
+                                <i className="cm-add-icon fa fa-lg fa-plus"  onClick={this.createModule}></i></button>
+                        </div>
+                    </div>
+                </li>
                 {this.renderListOfModules()}
+            </ul>
             </div>
-            <div className="col-8">
-                <Route path="/course/:courseId/module/:moduleId"
-                       component={ModuleEditor}/>
-            </div>
-            </div>
+                <div className="col-9">
+                    <Route path="/course/:courseId/module/:moduleId"
+                           component={ModuleEditor}/>
+                </div>
             </div>
             </Router>
     )}
@@ -91,10 +98,4 @@ export default class ModuleList extends React.Component {
                 (this.state.courseId)
             });
     }
-
-
-
-
-
-
 }

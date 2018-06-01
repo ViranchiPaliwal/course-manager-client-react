@@ -1,6 +1,7 @@
 import React from 'react';
 import CourseRow from '../components/CourseRow'
 import CourseService from '../services/CourseService';
+import CourseListStyle from '../css/CourseList.css'
 
 class CourseList extends React.Component {
     constructor() {
@@ -32,17 +33,17 @@ class CourseList extends React.Component {
 
     render() {
         return (
+
             <div>
-                <h2>Course List</h2>
-                <table className='table'>
+                <div  className='row cm-header'>
+                    <div className='col-sm-3'> <h3 className='cm-child-heading'>Course Manager</h3></div>
+                    <div className='col-sm-7'><input className="form-control"  onChange={this.titleChanged}
+                                           placeholder="New Course Title"/></div>
+                    <div className='col-sm-2'><button className="cm-child-button btn btn-danger"><i className="cm-child-icon fa fa-plus" onClick={this.createCourse}></i></button>
+                    </div>
+                </div>
+                <table className='table-bordered table-striped table'>
                     <thead>
-                    <tr>
-                        <th><input onChange={this.titleChanged} className='form-control' id="titleFld"
-                                   placeholder="cs101"/></th>
-                        <th>
-                            <button onClick={this.createCourse} className='btn btn-primary'>Add</button>
-                        </th>
-                    </tr>
                     <tr>
                         <th>Title</th>
                         <th>Owned By</th>
