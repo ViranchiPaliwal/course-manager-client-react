@@ -8,30 +8,30 @@ import ModuleListStyle from '../css/ModuleList.css'
 export default class ModuleList extends React.Component {
     render() {
         return (
-            <Router>
-            <div className="row">
-            <div className="col-3">
+            <div>
             <ul className='cm-ul-list list-group'>
                 <li>
-                    <div className="row">
-                        <div className="col-10" >
-                            <input value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"  className="form-control"></input>
-                        </div>
-                        <div>
-                            <button className="cm-add-button btn btn-primary float-right">
-                                <i className="cm-add-icon fa fa-lg fa-plus"  onClick={this.createModule}></i></button>
-                        </div>
+                    {/*<div className="row">*/}
+                        {/*<div className="col-10" >*/}
+                            {/*<input value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"  className="form-control"></input>*/}
+                        {/*</div>*/}
+                        {/*<div>*/}
+                            {/*<button className="cm-add-button btn btn-primary float-right">*/}
+                                {/*<i className="cm-add-icon fa fa-lg fa-plus"  onClick={this.createModule}></i></button>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+
+                    <div className="input-group mb-3">
+                        <input type="text" value={this.state.module.title} onChange={this.setModuleTitle} placeholder="New Module"  className="form-control"/>
+                            <div className="input-group-append">
+                                <button onClick={this.createModule} className="cm-add-button btn btn-primary float-right">
+                                <i className="cm-add-icon fa fa-lg fa-plus"></i></button>
+                            </div>
                     </div>
                 </li>
                 {this.renderListOfModules()}
             </ul>
             </div>
-                <div className="col-9">
-                    <Route path="/course/:courseId/module/:moduleId"
-                           component={ModuleEditor}/>
-                </div>
-            </div>
-            </Router>
     )}
 
     constructor(props) {
@@ -91,11 +91,12 @@ export default class ModuleList extends React.Component {
     }
 
     deleteModule(moduleId) {
+        if(window.confirm('Are you sure you want to delete the selected module ?')){
         this.moduleService
             .deleteModule(moduleId)
             .then(() => {
-                this.findAllModulesForCourse
-                (this.state.courseId)
+                window.location.href = '/course/' + this.state.courseId;
             });
+        }
     }
 }

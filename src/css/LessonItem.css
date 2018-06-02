@@ -1,0 +1,22 @@
+.cm-active-lssn-link {
+    color: white;
+    background: #007bff;
+}
+
+.cm-module-lssn-li{
+    background: transparent;
+    margin: 0px 8px 0px 8px;
+    padding: 10px;
+}
+
+.cm-module-lssn-li:hover{
+    background-color: transparent;
+}
+.cm-trash-lssn-icon{
+    margin-left: 5px;
+}
+
+.cm-navBar-lssn{
+    height: 50px;
+    text-align: center;
+}

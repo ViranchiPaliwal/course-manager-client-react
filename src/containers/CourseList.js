@@ -35,7 +35,7 @@ class CourseList extends React.Component {
         return (
 
             <div>
-                <div  className='row cm-header'>
+                <div  className='row cm-header bg-primary'>
                     <div className='col-sm-3'> <h3 className='cm-child-heading'>Course Manager</h3></div>
                     <div className='col-sm-7'><input className="form-control"  onChange={this.titleChanged}
                                            placeholder="New Course Title"/></div>

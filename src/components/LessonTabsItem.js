@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
-
+import { NavLink } from 'react-router-dom'
+import LessonItem from '../css/LessonItem.css'
 export default class LessonTabItem
     extends React.Component {
     constructor(props) {
@@ -8,15 +8,18 @@ export default class LessonTabItem
     }
     render() {
         return (
-            <li className="nav-item">
-                <Link to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lesson.id}`}>
+            <NavLink className="cm-navBar-lssn" activeClassName="cm-active-lssn-link" to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lesson.id}`}>
+            <div >
+                <li className="cm-module-lssn-li nav-item">
                 {this.props.lesson.title}
-                </Link>
-                <span className='float-right'>
+                <span className='cm-trash-lssn-icon float-right'>
                 <i onClick={() =>
                 {this.props.delete(this.props.lesson.id)}} className="fa fa-trash"></i>
                 </span>
             </li>
+            </div>
+            </NavLink>
+
         );
     }
 }

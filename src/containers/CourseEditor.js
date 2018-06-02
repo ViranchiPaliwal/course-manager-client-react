@@ -43,11 +43,12 @@ export default class CourseEditor
     render() {
         return (
             <div>
-                <nav className="navbar navbar-light">
+                <nav className="navbar navbar-light" >
                     <div>
                         <h3>{this.state.courseTitle}</h3>
                     </div>
                 </nav>
+                <hr style={{background:"#007bff"}}/>
                 <ModuleList
                         courseId={this.state.courseId}/>
             </div>

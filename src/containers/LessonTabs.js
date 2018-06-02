@@ -1,8 +1,7 @@
 import React from 'react';
 import LessonService from "../services/LessonService";
 import LessonTabsItem from "../components/LessonTabsItem";
-import TopicList from "./TopicList";
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import LessonTabsStyle from "../css/LessonTabs.css"
 
 export default class LessonTabs extends React.Component {
 
@@ -70,12 +69,13 @@ export default class LessonTabs extends React.Component {
     }
 
     deleteLesson(lessonId){
-        this.lessonService
-            .deleteLesson(lessonId)
-            .then(() => {
-                this.findAllLessonsForModule
-                (this.state.courseId, this.state.moduleId)
-            });
+        if(window.confirm('Are you sure you want to delete the selected lesson ?')) {
+            this.lessonService
+                .deleteLesson(lessonId)
+                .then(() => {
+                    window.location.href = '/course/' + this.state.courseId + '/module/' + this.state.moduleId;
+                });
+        }
     }
 
     findAllLessonsForModule(courseId, moduleId) {
@@ -90,20 +90,26 @@ export default class LessonTabs extends React.Component {
 
     render(){
         return(
-            <Router>
             <div>
-            <input value={this.state.lesson.title} onChange={this.setLessonTitle} placeholder="New Lesson"/>
-            <button onClick= {this.createLesson} className="btn btn-primary btn-block">
-            <i className="fa fa-plus"></i></button>
-            <ul className="nav nav-tabs">
+            {/*<input value={this.state.lesson.title} onChange={this.setLessonTitle} placeholder="New Lesson"/>*/}
+            {/*<button onClick= {this.createLesson} className="btn btn-primary btn-block">*/}
+            {/*<i className="fa fa-plus"></i></button>*/}
+                <nav  className="cm-lessntab-nav navbar navbar-expand navbar-light">
+                <ul className="navbar-nav mr-auto">
                 {this.renderListOfLessons()}
-            </ul>
-                <ul>
-                    <Route exact path="/course/:courseId/module/:moduleId/lesson/:lessonId"
-                           component={TopicList}/>
+                <li className="nav-item navbar-right cm-lessntab-li">
+                    <div className="input-group mb-3">
+                        <input type="text" value={this.state.lesson.title} onChange={this.setLessonTitle} placeholder="New Lesson" className="form-control"/>
+                        <div className="input-group-append">
+                            <button onClick= {this.createLesson} className="cm-add-button btn btn-primary float-right">
+                                <i className="cm-add-icon fa fa-lg fa-plus"></i></button>
+                        </div>
+                    </div>
+                </li>
                 </ul>
+                </nav>
+                <hr className="cm-lessntab-hr"/>
             </div>
-            </Router>
         )
     }
 }

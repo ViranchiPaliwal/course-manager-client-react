@@ -1,8 +1,9 @@
 .cm-active-link {
-    background: #66b3ff;
     color: white;
+    background: #007bff;
 }
 
 .cm-module-li{
     background: transparent;
+
 }
