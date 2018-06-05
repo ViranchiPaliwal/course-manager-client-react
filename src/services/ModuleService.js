@@ -1,8 +1,9 @@
 let _singleton = Symbol();
-const GET_MODULE_API_URL =
-    'http://localhost:8080/api/course/CID/module';
-const DELETE_MODULE_API_URL =
-    'http://localhost:8080/api/module/MODULE_ID';
+// const GET_MODULE_API_URL = 'http://localhost:8080/api/course/CID/module';
+// const DELETE_MODULE_API_URL = 'http://localhost:8080/api/module/MODULE_ID';
+const GET_MODULE_API_URL = 'https://web-dev-summer-online-2018.herokuapp.com/api/course/CID/module';
+const DELETE_MODULE_API_URL = 'https://web-dev-summer-online-2018.herokuapp.com/api/module/MODULE_ID';
+
 
 export default class ModuleService {
     constructor(singletonToken) {

@@ -1,6 +1,9 @@
 let _singleton = Symbol();
-const LESSON_API_URL = 'http://localhost:8080/api/course/CID/module/MID/lesson';
-const DELETE_LESSON_API = 'http://localhost:8080/api/lesson/LESSON_ID';
+// const LESSON_API_URL = 'http://localhost:8080/api/course/CID/module/MID/lesson';
+// const DELETE_LESSON_API = 'http://localhost:8080/api/lesson/LESSON_ID';
+
+const LESSON_API_URL = 'https://web-dev-summer-online-2018.herokuapp.com/api/course/CID/module/MID/lesson';
+const DELETE_LESSON_API = 'https://web-dev-summer-online-2018.herokuapp.com/api/lesson/LESSON_ID';
 
 export default class LessonService {
     constructor(singletonToken) {
