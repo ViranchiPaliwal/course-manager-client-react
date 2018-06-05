@@ -39,7 +39,7 @@ class CourseList extends React.Component {
                     <div className='col-sm-3'> <h3 className='cm-child-heading'>Course Manager</h3></div>
                     <div className='col-sm-7'><input className="form-control"  onChange={this.titleChanged}
                                            placeholder="New Course Title"/></div>
-                    <div className='col-sm-2'><button className="cm-child-button btn btn-danger"><i className="cm-child-icon fa fa-plus" onClick={this.createCourse}></i></button>
+                    <div className='col-sm-2'><button onClick={this.createCourse} className="cm-child-button btn btn-danger"><i className="cm-child-icon fa fa-plus"></i></button>
                     </div>
                 </div>
                 <table className='table-bordered table-striped table'>
