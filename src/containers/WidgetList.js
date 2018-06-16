@@ -3,16 +3,19 @@ import ReactDOM from 'react-dom'
 import {Provider, connect} from 'react-redux'
 import {createStore} from 'redux'
 
-const Widget = ({widget}) => (
+const Widget = ({widget, dispatch}) => (
     <li key={widget.id}>{widget.text}
-        <button onClick={}></button></li>
+        <button onClick={e => (
+            dispatch({type: 'DELETE_WIDGET', id: widget.id})
+        )}>Delete widget</button></li>
 )
 
+const WidgetContainer = connect()(Widget)
 const WidgetList = ({widgets, dispatch}) => (
     <div>
         <h1>Widget List  {widgets.length}</h1>
         <ul>
-            {widgets.map(widget => (<Widget widget={widget}/>))}
+            {widgets.map(widget => (<WidgetContainer widget={widget}/>))}
         </ul>
         <button onClick={e => (
             dispatch({type: 'ADD_WIDGET'})
@@ -31,7 +34,11 @@ let initialState = {
 
 const widgetReducer = (state = initialState, action) =>{
     switch (action.type){
-
+        case 'DELETE_WIDGET':
+            return {
+                widgets:state.widgets.filter(widget => (
+                 widget.id != action.id
+            ))}
         case 'ADD_WIDGET':
             return {
                 widgets:[
