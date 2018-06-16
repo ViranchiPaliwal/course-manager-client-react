@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
 import {Provider, connect} from 'react-redux'
 import {createStore} from 'redux'
@@ -11,17 +11,27 @@ const Widget = ({widget, dispatch}) => (
 )
 
 const WidgetContainer = connect()(Widget)
-const WidgetList = ({widgets, dispatch}) => (
-    <div>
-        <h1>Widget List  {widgets.length}</h1>
-        <ul>
-            {widgets.map(widget => (<WidgetContainer widget={widget}/>))}
-        </ul>
-        <button onClick={e => (
-            dispatch({type: 'ADD_WIDGET'})
-        )}>Add widget</button>
-    </div>
-)
+class WidgetList extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+        return (
+            //({widgets, dispatch})
+            <div>
+                <h1>Widget List {this.props.widgets.length}</h1>
+                <ul>
+                    {this.props.widgets.map(widget => (<WidgetContainer widget={widget}/>))}
+                </ul>
+                <button onClick={e => (
+                    this.props.dispatch({type: 'ADD_WIDGET'})
+                )}>Add widget
+                </button>
+            </div>
+        )
+    }
+}
 let initialState = {
     widgets: [
         {id: 0, text: "Widget 1"},
