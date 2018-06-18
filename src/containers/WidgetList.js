@@ -12,15 +12,20 @@ const findAllWidgets = dispatch => {
 }
 
 const addWidget = dispatch =>{
-        dispatch({type: 'ADD_WIDGET'})
+    dispatch({type: 'ADD_WIDGET'})
 }
 
 const Widget = ({widget, dispatch}) => (
-    <li key={widget.id}>{widget.text}
+    <li key={widget.id}>{widget.id}{widget.text}
         <button onClick={e => (
             dispatch({type: 'DELETE_WIDGET', id: widget.id})
         )}>Delete widget</button></li>
 )
+
+const save = dispatch => {
+    dispatch({type: 'SAVE_ITEMS'})
+}
+
 
 const WidgetContainer = connect()(Widget)
 class WidgetList extends Component {
@@ -34,6 +39,9 @@ class WidgetList extends Component {
             //({widgets, dispatch})
             <div>
                 <h1>Widget List {this.props.widgets.length}</h1>
+                <button onClick={this.props.save}>
+                    Save
+                </button>
                 <ul>
                     {this.props.widgets.map(widget => (<WidgetContainer widget={widget}/>))}
                 </ul>
@@ -63,15 +71,22 @@ const widgetReducer = (state = {widgets: []}, action) =>{
         case 'DELETE_WIDGET':
             return {
                 widgets:state.widgets.filter(widget => (
-                 widget.id != action.id
-            ))}
+                    widget.id != action.id
+                ))}
         case 'ADD_WIDGET':
             return {
                 widgets:[
                     ...state.widgets,
-                    {id: 99, text: 'New Widget'}
+                    {id: state.widgets.length + 2, text: 'New Widget'}
                 ]
             }
+        case 'SAVE_ITEMS':
+            fetch('http://localhost:8080/api/widget/save', {
+                method: 'post',
+                body: JSON.stringify(state.widgets),
+                headers: {
+                    'content-type': 'application/json'}
+            })
         default:
             return state
     }
@@ -82,7 +97,8 @@ let store = createStore(widgetReducer)
 const dispatcherToPropsMapper
     = dispatch => ({
     findAllWidgets: () => findAllWidgets(dispatch),
-    addWidget: () => addWidget(dispatch)
+    addWidget: () => addWidget(dispatch),
+    save: () => save(dispatch)
 })
 
 const stateToPropertyMapper = state => ({
