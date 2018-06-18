@@ -3,6 +3,18 @@ import ReactDOM from 'react-dom'
 import {Provider, connect} from 'react-redux'
 import {createStore} from 'redux'
 
+const findAllWidgets = dispatch => {
+    fetch('http://localhost:8080/api/widget')
+        .then(response => (response.json()))
+        .then(widgets => dispatch({
+            type: 'FIND_ALL_WIDGETS',
+            widgets: widgets }))
+}
+
+const addWidget = dispatch =>{
+        dispatch({type: 'ADD_WIDGET'})
+}
+
 const Widget = ({widget, dispatch}) => (
     <li key={widget.id}>{widget.text}
         <button onClick={e => (
@@ -14,6 +26,7 @@ const WidgetContainer = connect()(Widget)
 class WidgetList extends Component {
     constructor(props) {
         super(props)
+        this.props.findAllWidgets()
     }
 
     render() {
@@ -24,9 +37,8 @@ class WidgetList extends Component {
                 <ul>
                     {this.props.widgets.map(widget => (<WidgetContainer widget={widget}/>))}
                 </ul>
-                <button onClick={e => (
-                    this.props.dispatch({type: 'ADD_WIDGET'})
-                )}>Add widget
+                <button onClick={this.props.addWidget}
+                >Add widget
                 </button>
             </div>
         )
@@ -42,8 +54,12 @@ let initialState = {
     ]
 }
 
-const widgetReducer = (state = initialState, action) =>{
+const widgetReducer = (state = {widgets: []}, action) =>{
     switch (action.type){
+        case 'FIND_ALL_WIDGETS':
+            return {
+                widgets: action.widgets
+            }
         case 'DELETE_WIDGET':
             return {
                 widgets:state.widgets.filter(widget => (
@@ -63,10 +79,16 @@ const widgetReducer = (state = initialState, action) =>{
 
 let store = createStore(widgetReducer)
 
+const dispatcherToPropsMapper
+    = dispatch => ({
+    findAllWidgets: () => findAllWidgets(dispatch),
+    addWidget: () => addWidget(dispatch)
+})
+
 const stateToPropertyMapper = state => ({
     widgets:state.widgets
 })
-const App = connect(stateToPropertyMapper)(WidgetList)
+const App = connect(stateToPropertyMapper, dispatcherToPropsMapper)(WidgetList)
 
 ReactDOM.render(
     <Provider store={store}>
