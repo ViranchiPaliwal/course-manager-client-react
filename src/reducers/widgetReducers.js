@@ -1,31 +1,40 @@
-import {ADD_WIDGET, DELETE_WIDGET, FIND_ALL_WIDGETS, SAVE_ITEMS} from "../constants";
+import * as constants from "../constants";
 
-export const widgetReducer = (state = {widgets: []}, action) =>{
+export const widgetReducer = (state = {widgets: [], preview: false}, action) =>{
     switch (action.type){
-        case FIND_ALL_WIDGETS:
-            return {
-                widgets: action.widgets
+        case constants.FIND_ALL_WIDGETS:
+            newState = Object.assign({}, state)
+            newState.widgets = state.widgets
+            return newState
+        case constants.PREVIEW:
+            return{
+                widgets: state.widgets,
+                preview: !state.preview
             }
-        case DELETE_WIDGET:
+        case constants.DELETE_WIDGET:
             return {
                 widgets:state.widgets.filter(widget => (
                     widget.id != action.id
                 ))}
-        case ADD_WIDGET:
+        case constants.ADD_WIDGET:
             return {
                 widgets:[
                     ...state.widgets,
-                    {id: state.widgets.length + 2, text: 'New Widget', widgetType: 'Paragraph'}
+                    {id: state.widgets.length + 2,
+                        text: 'New Widget',
+                        widgetType: 'Paragraph',
+                        size:'2'
+                    }
                 ]
             }
-        case SAVE_ITEMS:
+        case constants.SAVE_ITEMS:
             fetch('http://localhost:8080/api/widget/save', {
                 method: 'post',
                 body: JSON.stringify(state.widgets),
                 headers: {
                     'content-type': 'application/json'}
             })
-        case 'SELECT_WIDGET_TYPE':
+        case constants.SELECT_WIDGET_TYPE:
             let newState = {
                 widgets:state.widgets.filter((widget)=>{
                     if(widget.id===action.id) {
@@ -34,6 +43,25 @@ export const widgetReducer = (state = {widgets: []}, action) =>{
                     return true;
                 })}
             return JSON.parse(JSON.stringify(newState));
+        case constants.HEADING_SIZE_CHANGED:
+            return {
+                widgets: state.widgets.map(widget =>{
+                    if(widget.id===action.id){
+                        widget.size=action.size
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.HEADING_TEXT_CHANGED:
+            return {
+                widgets: state.widgets.map(widget =>{
+                    if(widget.id===action.id){
+                        widget.text=action.text
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
 
         default:
             return state
