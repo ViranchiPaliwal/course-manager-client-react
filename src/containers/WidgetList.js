@@ -51,6 +51,6 @@ const stateToPropertyMapper = state => ({
 })
 
 
-const App = connect(stateToPropertyMapper, dispatcherToPropsMapper)(WidgetList)
+const Widget = connect(stateToPropertyMapper, dispatcherToPropsMapper)(WidgetList)
 
-export default App
+export default Widget
