@@ -15,7 +15,7 @@ export const widgetReducer = (state = {widgets: []}, action) =>{
             return {
                 widgets:[
                     ...state.widgets,
-                    {id: state.widgets.length + 2, text: 'New Widget'}
+                    {id: state.widgets.length + 2, text: 'New Widget', widgetType: 'Paragraph'}
                 ]
             }
         case SAVE_ITEMS:
@@ -25,6 +25,16 @@ export const widgetReducer = (state = {widgets: []}, action) =>{
                 headers: {
                     'content-type': 'application/json'}
             })
+        case 'SELECT_WIDGET_TYPE':
+            let newState = {
+                widgets:state.widgets.filter((widget)=>{
+                    if(widget.id===action.id) {
+                        widget.widgetType = action.widgetType;
+                    }
+                    return true;
+                })}
+            return JSON.parse(JSON.stringify(newState));
+
         default:
             return state
     }
