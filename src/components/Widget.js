@@ -6,7 +6,7 @@ import HeadingContainer from './HeadingWidget'
 import ImageContainer from './ImageWidget'
 import ListContainer from './ListWidget'
 import LinkContainer from './LinkWidget'
-
+import ParagraphContainer from './ParagraphWidget'
 const Paragraph = () => (
     <h2>Paragraph</h2>
 )
@@ -46,7 +46,7 @@ const Widget = ({widget, preview, dispatch, googleImageUrls}) => {
             </div>
             <div>
                 {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
-                {widget.widgetType==='Paragraph' && <Paragraph/>}
+                {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget} preview={preview}/>}
                 {widget.widgetType==='List' && <ListContainer widget={widget} preview={preview}/>}
                 {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview} googleImageUrls={googleImageUrls}/>}
                 {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}

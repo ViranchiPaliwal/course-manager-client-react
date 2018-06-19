@@ -27,6 +27,10 @@ margin-top: 10px;
     margin: 10px 0px 10px 0px
 }
 
+.cm-widget-preview{
+    margin-left: 10px
+}
+
 .cm-widget-image{
     height: 400px;
     width: 400px;

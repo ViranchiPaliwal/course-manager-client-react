@@ -104,5 +104,12 @@ export const linkContentChanged = (dispatch, widgetId, newContent) => (
         }
     )
 )
-
-
+export const paraContentChanged = (dispatch, widgetId, newContent) => (
+    dispatch(
+        {
+            type: constants.PARA_CONTENT_CHANGED,
+            id: widgetId,
+            paraContent: newContent
+        }
+    )
+)

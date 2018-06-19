@@ -4,6 +4,7 @@ import WidgetContainer from '../components/Widget';
 import ToggleButton from 'react-toggle-button'
 import * as actions from '../actions';
 import WidgetListStyle from '../css/WidgetList.css'
+import {DELETE_WIDGET} from "../constants";
 
 class WidgetList extends Component {
     constructor(props) {
@@ -35,9 +36,8 @@ class WidgetList extends Component {
                             preview={this.props.previewMode}
                             googleImageUrls={this.props.googleImageUrls}/>))}
                 </ul>
-                <button onClick={this.props.addWidget}
-                >Add widget
-                </button>
+                <button className="btn btn-primary float-right" onClick={this.props.addWidget}>
+                    <i className="fa fa-plus"/></button>
             </div>
         )
     }

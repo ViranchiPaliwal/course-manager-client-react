@@ -36,10 +36,10 @@ const Image = ({widget, preview, imageLink, imageUrlChanged, widgetNameChanged, 
                         ))}
                     <h3>Preview</h3>
             </div>
-                <div>
+            </div>
+            <div className="cm-widget-preview">
                     {<img src={widget.imageLink} className='cm-widget-image'/>}
-                </div>
-        </div>
+            </div>
         </div>
     )}
 

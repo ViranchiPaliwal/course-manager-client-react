@@ -22,10 +22,8 @@ export const widgetReducer = (state = {widgets: [], preview: false, googleImageU
             return {
                 widgets:[
                     ...state.widgets,
-                    {id: state.widgets.length + 2,
-                        text: 'New Widget',
-                        widgetType: 'Paragraph',
-                        size:'2'
+                    {
+                        widgetType: 'Heading'
                     }
                 ]
             }
@@ -116,6 +114,15 @@ export const widgetReducer = (state = {widgets: [], preview: false, googleImageU
                 })
             }
 
+        case constants.PARA_CONTENT_CHANGED:
+            return {
+                widgets: state.widgets.map(widget =>{
+                    if(widget.id===action.id){
+                        widget.paraContent=action.paraContent
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
 
         case constants.GOOGLE_QUERY:
             let urls = action.googleImageUrls.items.filter(item => {

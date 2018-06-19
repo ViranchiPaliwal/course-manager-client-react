@@ -2,8 +2,7 @@ import React from 'react';
 import * as actions from "../actions";
 import {connect} from "react-redux";
 
-const List = ({widget, preview, listType, listContent, widgetNameChanged, listContentChanged, listTypeChanged}) => {
-    let selectElement
+const Paragraph = ({widget, preview, paraContent, widgetNameChanged, paraContentChanged}) => {
     let inputElement
     let nameElement
     return(
@@ -13,16 +12,9 @@ const List = ({widget, preview, listType, listContent, widgetNameChanged, listCo
                 <div className='form-group'>
                 <textarea className='form-control cm-heading-form-control' type='text' placeholder='Put items in different lines'
                        ref={node => inputElement = node}
-                          onChange={() => listContentChanged(widget.id, inputElement.value)}
-                          value={widget.listContent}/>
+                          onChange={() => paraContentChanged(widget.id, inputElement.value)}
+                          value={widget.paraContent}/>
 
-                <select className='form-control cm-heading-form-control'
-                        ref={node => selectElement = node}
-                        onChange={() => listTypeChanged(widget.id, selectElement.value)}
-                        value={widget.listType}>
-                    <option >Unordered List</option>
-                    <option >Ordered List</option>
-                </select>
                     <input className="form-control cm-heading-form-control" type="text" placeholder="Widget Name"
                            onChange={() => widgetNameChanged(widget.id, nameElement.value)}
                            ref={node => nameElement=node}
@@ -31,18 +23,14 @@ const List = ({widget, preview, listType, listContent, widgetNameChanged, listCo
                     <h3>Preview</h3>
             </div>
         </div>
-            <div className="cm-widget-preview">
-            {widget.listType==="Unordered List"&&<ul><ChildComponent childElements={widget.listContent}/></ul>}
-            {widget.listType==="Ordered List"&&<ol><ChildComponent childElements={widget.listContent}/></ol>}
-            </div>
+            <p className="cm-widget-preview">{widget.paraContent}</p>
         </div>
     )}
 
 
 const dispatcherToPropsMapper
     = dispatch => ({
-    listContentChanged: (widgetId, newContent) => actions.listContentChanged(dispatch, widgetId, newContent),
-    listTypeChanged: (widgetId, newType) => actions.listTypeChanged(dispatch, widgetId, newType),
+    paraContentChanged: (widgetId, newContent) => actions.paraContentChanged(dispatch, widgetId, newContent),
     widgetNameChanged: (widgetId, newName) => actions.widgetNameChanged(dispatch, widgetId, newName)
 
 })
@@ -60,6 +48,6 @@ const ChildComponent = ({childElements}) => {
     }
 }
 
-const ListContainer = connect(stateToPropsMapper, dispatcherToPropsMapper)(List)
+const ParagraphContainer = connect(stateToPropsMapper, dispatcherToPropsMapper)(Paragraph)
 
-export default ListContainer
+export default ParagraphContainer
