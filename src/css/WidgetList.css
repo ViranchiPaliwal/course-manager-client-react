@@ -9,6 +9,7 @@
 
 .cm-widget-ul{
 margin-top: 10px;
+list-style-type: none;
 }
 
 .cm-up-down-btn{
@@ -34,4 +35,8 @@ margin-top: 10px;
 .cm-widget-image{
     height: 400px;
     width: 400px;
+}
+
+.cm-widget-div{
+    margin-top: 10px;
 }

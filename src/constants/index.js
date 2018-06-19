@@ -6,7 +6,7 @@ export const HEADING_SIZE_CHANGED = 'HEADING_SIZE_CHANGED';
 export const SELECT_WIDGET_TYPE = 'SELECT_WIDGET_TYPE';
 export const HEADING_TEXT_CHANGED = 'HEADING_TEXT_CHANGED';
 export const PREVIEW = 'PREVIEW';
-export const SAVE_WIDGETS_URL = 'http://localhost:8080/api/topic/topicId/widget'
+export const SAVE_WIDGETS_URL = 'https://web-dev-summer-online-2018.herokuapp.com/api/topic/topicId/widget'
 export const WIDGET_NAME_CHANGED = 'WIDGET_NAME_CHANGED';
 export const IMAGE_URL_CHANGED = 'IMAGE_URL_CHANGED';
 export const GOOGLE_QUERY = 'GOOGLE_QUERY';
@@ -15,6 +15,10 @@ export const LIST_TYPE_CHANGED = 'LIST_TYPE_CHANGED';
 export const LINK_CONTENT_CHANGED = 'LINK_CONTENT_CHANGED';
 export const LINK_URL_CHANGED = 'LINK_URL_CHANGED';
 export const PARA_CONTENT_CHANGED = 'PARA_CONTENT_CHANGED';
+export const MOVE_DOWNWARD = 'MOVE_DOWNWARD';
+export const MOVE_UPWARD = 'MOVE_UPWARD';
+export const FIND_WIDGETS_FOR_TOPIC = 'FIND_WIDGETS_FOR_TOPIC';
+
 
 
 

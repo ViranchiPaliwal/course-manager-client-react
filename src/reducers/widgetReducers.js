@@ -23,9 +23,17 @@ export const widgetReducer = (state = {widgets: [], preview: false, googleImageU
                 widgets:[
                     ...state.widgets,
                     {
-                        widgetType: 'Heading'
+                        widgetType: 'Heading',
+                        size: 1,
+                        id: state.widgets.length + 1,
+                        widgetPos: state.widgets.length + 1
                     }
                 ]
+            }
+        case constants.FIND_WIDGETS_FOR_TOPIC:
+            return {
+                widgets:action.widgets,
+                topicId:action.topicId
             }
         case constants.SAVE_WIDGETS:
             fetch(constants.SAVE_WIDGETS_URL.replace('topicId', action.topicId), {
@@ -35,6 +43,27 @@ export const widgetReducer = (state = {widgets: [], preview: false, googleImageU
                     'content-type': 'application/json'}
             })
             return state
+
+        case constants.MOVE_UPWARD:
+            const updatedWidgetUp = swap(state.widgets, action.widgetPos-1, action.widgetPos-2)
+            newState = {
+                widgets: updatedWidgetUp,
+                preview: state.preview,
+                topicId: state.topicId
+            }
+            return JSON.parse(JSON.stringify(newState));
+
+
+        case constants.MOVE_DOWNWARD:
+            const updatedWidgetDown = swap(state.widgets, action.widgetPos, action.widgetPos-1)
+            newState = {
+                widgets: updatedWidgetDown,
+                preview: state.preview,
+                topicId: state.topicId
+            }
+            return JSON.parse(JSON.stringify(newState));
+
+
         case constants.SELECT_WIDGET_TYPE:
             let newState = {
                 widgets:state.widgets.filter((widget)=>{
@@ -145,4 +174,14 @@ export const widgetReducer = (state = {widgets: [], preview: false, googleImageU
         default:
             return state
     }
+}
+
+const swap = (widgets, fi, si) =>{
+    widgets = widgets.slice()
+    widgets[fi].widgetPos-=1
+    widgets[si].widgetPos+=1
+    const temp = widgets[fi];
+    widgets[fi] = widgets[si];
+    widgets[si] = temp;
+    return widgets
 }

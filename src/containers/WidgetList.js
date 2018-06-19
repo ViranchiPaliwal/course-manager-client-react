@@ -9,24 +9,27 @@ import {DELETE_WIDGET} from "../constants";
 class WidgetList extends Component {
     constructor(props) {
         super(props)
-        this.props.findAllWidgets()
     }
 
     render() {
         return (
             <div className="cm-widget-list">
                 <div className="row">
-                <div className="col-9"/>
+                    <div className="col-9"/>
 
-                <div className="row col-3 float-right" >
-                    <button className="btn btn-success" hidden={this.props.previewMode}
-                            onClick={() => {this.props.save(this.props.topicId)}}>
-                        Save
-                    </button>
-                    <b className="cm-preview">Preview</b>
-                    <ToggleButton  onClick={() => {this.props.preview(this.props.topicId)}}
-                                   value={this.props.previewMode}/>
-                </div>
+                    <div className="row col-3 float-right">
+                        <button className="btn btn-success" hidden={this.props.previewMode}
+                                onClick={() => {
+                                    this.props.save(this.props.topicId)
+                                }}>
+                            Save
+                        </button>
+                        <b className="cm-preview">Preview</b>
+                        <ToggleButton onClick={() => {
+                            this.props.preview(this.props.topicId)
+                        }}
+                                      value={this.props.previewMode}/>
+                    </div>
                 </div>
                 <ul className="cm-widget-ul">
                     {this.props.widgets.map(widget =>
@@ -34,16 +37,20 @@ class WidgetList extends Component {
                             widget={widget}
                             key={widget.id}
                             preview={this.props.previewMode}
-                            googleImageUrls={this.props.googleImageUrls}/>))}
+                            googleImageUrls={this.props.googleImageUrls}
+                            widgetLength={this.props.widgets.length}/>))}
                 </ul>
-                <button className="btn btn-primary float-right" onClick={this.props.addWidget}>
+                <button hidden={this.props.previewMode} className="btn btn-primary float-right"
+                        onClick={this.props.addWidget}>
                     <i className="fa fa-plus"/></button>
             </div>
         )
     }
 
-    componentWillReceiveProps(newProps){
-        this.props.findAllWidgets(newProps.topicId);
+    componentWillReceiveProps(newProps) {
+        if (newProps.topicId !== this.props.topicId) {
+            this.props.findAllWidgets(newProps.topicId);
+        }
     }
 }
 

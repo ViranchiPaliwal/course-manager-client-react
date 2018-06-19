@@ -26,8 +26,8 @@ const Link = ({widget, preview, linkContent, linkUrl, widgetNameChanged, linkUrl
 
                     <h3>Preview</h3>
             </div>
-                <a className="cm-widget-preview" href={widget.linkUrl}>{widget.linkContent}</a>
         </div>
+            <a className="cm-widget-preview" href={widget.linkUrl}>{widget.linkContent}</a>
         </div>
     )}
 

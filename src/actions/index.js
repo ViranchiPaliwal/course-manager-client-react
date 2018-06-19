@@ -1,10 +1,11 @@
 import * as constants from "../constants";
+import {DELETE_WIDGET} from "../constants";
 
 export const findAllWidgets = (dispatch, topicId) => {
-    fetch('http://localhost:8080/api/widget')
+    fetch('https://web-dev-summer-online-2018.herokuapp.com/api/topic/tId/widget'.replace("tId",topicId))
         .then(response => (response.json()))
         .then(widgets => dispatch({
-            type: constants.FIND_ALL_WIDGETS,
+            type: constants.FIND_WIDGETS_FOR_TOPIC,
             widgets: widgets,
             topicId: topicId}))
 }
@@ -12,7 +13,6 @@ export const findAllWidgets = (dispatch, topicId) => {
 export const addWidget = dispatch =>{
     dispatch({type: constants.ADD_WIDGET})
 }
-
 
 
 export const save = (dispatch, topicId) => {
@@ -110,6 +110,43 @@ export const paraContentChanged = (dispatch, widgetId, newContent) => (
             type: constants.PARA_CONTENT_CHANGED,
             id: widgetId,
             paraContent: newContent
+        }
+    )
+)
+
+export const moveUpward = (dispatch, widgetId, widgetPos) => (
+    dispatch(
+        {
+            type: constants.MOVE_UPWARD,
+            id: widgetId,
+            widgetPos: widgetPos
+        }
+    )
+)
+export const moveDownward = (dispatch, widgetId, widgetPos) => (
+    dispatch(
+        {
+            type: constants.MOVE_DOWNWARD,
+            id: widgetId,
+            widgetPos: widgetPos
+        }
+    )
+)
+export const deleteWidget = (dispatch, widgetId) => (
+    dispatch(
+        {
+            type: constants.DELETE_WIDGET,
+            id: widgetId
+        }
+    )
+)
+
+export const selectWidgetType = (dispatch, widgetId, widgetType) => (
+    dispatch(
+        {
+            type: constants.SELECT_WIDGET_TYPE,
+            id: widgetId,
+            widgetType: widgetType
         }
     )
 )
