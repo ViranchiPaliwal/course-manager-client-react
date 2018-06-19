@@ -3,13 +3,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import * as actions from "../actions";
 import HeadingContainer from './HeadingWidget'
+import ImageContainer from './ImageWidget'
+import ListContainer from './ListWidget'
+import LinkContainer from './LinkWidget'
 
-const List = () => (
-    <h2>List</h2>
-)
-const Image = () => (
-    <h2>Image</h2>
-)
 const Paragraph = () => (
     <h2>Paragraph</h2>
 )
@@ -17,7 +14,7 @@ const Link = () => (
     <h2>Link</h2>
 )
 
-const Widget = ({widget, preview, dispatch}) => {
+const Widget = ({widget, preview, dispatch, googleImageUrls}) => {
     let selectElement
     return(
         <li className="border" key={widget.id}>
@@ -48,11 +45,11 @@ const Widget = ({widget, preview, dispatch}) => {
                 </div>
             </div>
             <div>
-                {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
+                {widget.widgetType==='Heading' && <HeadingContainer widget={widget} preview={preview}/>}
                 {widget.widgetType==='Paragraph' && <Paragraph/>}
-                {widget.widgetType==='List' && <List/>}
-                {widget.widgetType==='Image' && <Image/>}
-                {widget.widgetType==='Link' && <Link/>}
+                {widget.widgetType==='List' && <ListContainer widget={widget} preview={preview}/>}
+                {widget.widgetType==='Image' && <ImageContainer widget={widget} preview={preview} googleImageUrls={googleImageUrls}/>}
+                {widget.widgetType==='Link' && <LinkContainer widget={widget} preview={preview}/>}
             </div>
         </li>)}
 

@@ -20,9 +20,14 @@ margin-top: 10px;
 }
 
 .cm-widget-heading{
-    margin: 0px 10px 0px 10px;
+    margin: 0px 10px 10px 10px;
 }
 
 .cm-heading-form-control{
     margin: 10px 0px 10px 0px
+}
+
+.cm-widget-image{
+    height: 400px;
+    width: 400px;
 }

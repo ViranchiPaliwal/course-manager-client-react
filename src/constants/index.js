@@ -8,5 +8,12 @@ export const HEADING_TEXT_CHANGED = 'HEADING_TEXT_CHANGED';
 export const PREVIEW = 'PREVIEW';
 export const SAVE_WIDGETS_URL = 'http://localhost:8080/api/topic/topicId/widget'
 export const WIDGET_NAME_CHANGED = 'WIDGET_NAME_CHANGED';
+export const IMAGE_URL_CHANGED = 'IMAGE_URL_CHANGED';
+export const GOOGLE_QUERY = 'GOOGLE_QUERY';
+export const LIST_CONTENT_CHANGED = 'LIST_CONTENT_CHANGED';
+export const LIST_TYPE_CHANGED = 'LIST_TYPE_CHANGED';
+export const LINK_CONTENT_CHANGED = 'LINK_CONTENT_CHANGED';
+export const LINK_URL_CHANGED = 'LINK_URL_CHANGED';
+
 
 

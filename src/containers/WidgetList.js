@@ -32,7 +32,8 @@ class WidgetList extends Component {
                         (<WidgetContainer
                             widget={widget}
                             key={widget.id}
-                            preview={this.props.previewMode}/>))}
+                            preview={this.props.previewMode}
+                            googleImageUrls={this.props.googleImageUrls}/>))}
                 </ul>
                 <button onClick={this.props.addWidget}
                 >Add widget
@@ -56,8 +57,9 @@ const dispatcherToPropsMapper
 })
 
 const stateToPropertyMapper = state => ({
-    widgets:state.widgets,
-    previewMode:state.preview
+    widgets: state.widgets,
+    previewMode: state.preview,
+    googleImageUrls: state.googleImageUrls
 })
 
 

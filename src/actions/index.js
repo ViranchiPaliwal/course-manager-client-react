@@ -47,3 +47,62 @@ export const widgetNameChanged = (dispatch, widgetId, newName) => (
         }
     )
 )
+
+export const imageUrlChanged = (dispatch, widgetId, newUrl) => (
+    dispatch(
+        {
+            type: constants.IMAGE_URL_CHANGED,
+            id: widgetId,
+            imageLink: newUrl
+        }
+    )
+)
+
+export const queryChanged = (dispatch, query) => {
+    fetch('https://www.googleapis.com/customsearch/v1?key=AIzaSyAnN73zsGPt7Rs2E-n-FDLXl_rlle_V1OA&cx=011117383754519309180:7htllrp63u4&q=googleQuery'.replace("googleQuery",query))
+        .then(response => (response.json()))
+        .then(widgets => dispatch({
+            type: constants.GOOGLE_QUERY,
+            googleImageUrls: widgets}))
+}
+
+export const listContentChanged = (dispatch, widgetId, newContent) => (
+    dispatch(
+        {
+            type: constants.LIST_CONTENT_CHANGED,
+            id: widgetId,
+            listContent: newContent
+        }
+    )
+)
+
+export const listTypeChanged = (dispatch, widgetId, newType) => (
+    dispatch(
+        {
+            type: constants.LIST_TYPE_CHANGED,
+            id: widgetId,
+            listType: newType
+        }
+    )
+)
+
+export const linkUrlChanged = (dispatch, widgetId, newUrl) => (
+    dispatch(
+        {
+            type: constants.LINK_URL_CHANGED,
+            id: widgetId,
+            linkUrl: newUrl
+        }
+    )
+)
+export const linkContentChanged = (dispatch, widgetId, newContent) => (
+    dispatch(
+        {
+            type: constants.LINK_CONTENT_CHANGED,
+            id: widgetId,
+            linkContent: newContent
+        }
+    )
+)
+
+
