@@ -1,4 +1,5 @@
 import * as constants from "../constants";
+import {SAVE_WIDGETS} from "../constants";
 
 export const widgetReducer = (state = {widgets: [], preview: false}, action) =>{
     switch (action.type){
@@ -9,7 +10,8 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) =>{
         case constants.PREVIEW:
             return{
                 widgets: state.widgets,
-                preview: !state.preview
+                preview: !state.preview,
+                topicId: action.topicId
             }
         case constants.DELETE_WIDGET:
             return {
@@ -27,13 +29,14 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) =>{
                     }
                 ]
             }
-        case constants.SAVE_ITEMS:
-            fetch('http://localhost:8080/api/widget/save', {
+        case constants.SAVE_WIDGETS:
+            fetch(constants.SAVE_WIDGETS_URL.replace('topicId', action.topicId), {
                 method: 'post',
                 body: JSON.stringify(state.widgets),
                 headers: {
                     'content-type': 'application/json'}
             })
+            return state
         case constants.SELECT_WIDGET_TYPE:
             let newState = {
                 widgets:state.widgets.filter((widget)=>{
@@ -48,6 +51,16 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) =>{
                 widgets: state.widgets.map(widget =>{
                     if(widget.id===action.id){
                         widget.size=action.size
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.WIDGET_NAME_CHANGED:
+            return {
+                widgets: state.widgets.map(widget =>{
+                    if(widget.id===action.id){
+                        widget.widgetName=action.widgetName
                     }
                     return Object.assign({}, widget)
                 })

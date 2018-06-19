@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import WidgetContainer from '../components/Widget';
+import ToggleButton from 'react-toggle-button'
 import * as actions from '../actions';
-
+import WidgetListStyle from '../css/WidgetList.css'
 
 class WidgetList extends Component {
     constructor(props) {
@@ -12,16 +13,21 @@ class WidgetList extends Component {
 
     render() {
         return (
-            //({widgets, dispatch})
-            <div>
-                <h1>Widget List {this.props.widgets.length}</h1>
-                <button hidden={this.props.previewMode} onClick={this.props.save}>
-                    Save
-                </button>
-                <button onClick={this.props.preview}>
-                    Preview
-                </button>
-                <ul>
+            <div className="cm-widget-list">
+                <div className="row">
+                <div className="col-9"/>
+
+                <div className="row col-3 float-right" >
+                    <button className="btn btn-success" hidden={this.props.previewMode}
+                            onClick={() => {this.props.save(this.props.topicId)}}>
+                        Save
+                    </button>
+                    <b className="cm-preview">Preview</b>
+                    <ToggleButton  onClick={() => {this.props.preview(this.props.topicId)}}
+                                   value={this.props.previewMode}/>
+                </div>
+                </div>
+                <ul className="cm-widget-ul">
                     {this.props.widgets.map(widget =>
                         (<WidgetContainer
                             widget={widget}
@@ -34,14 +40,18 @@ class WidgetList extends Component {
             </div>
         )
     }
+
+    componentWillReceiveProps(newProps){
+        this.props.findAllWidgets(newProps.topicId);
+    }
 }
 
 const dispatcherToPropsMapper
     = dispatch => ({
-    findAllWidgets: () => actions.findAllWidgets(dispatch),
     addWidget: () => actions.addWidget(dispatch),
-    save: () => actions.save(dispatch),
-    preview: () => actions.preview(dispatch)
+    save: (topicId) => actions.save(dispatch, topicId),
+    preview: (topicId) => actions.preview(dispatch, topicId),
+    findAllWidgets: (topicId) => actions.findAllWidgets(dispatch, topicId)
 
 })
 

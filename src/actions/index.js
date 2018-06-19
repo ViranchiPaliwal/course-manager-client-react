@@ -1,11 +1,12 @@
 import * as constants from "../constants";
 
-export const findAllWidgets = dispatch => {
+export const findAllWidgets = (dispatch, topicId) => {
     fetch('http://localhost:8080/api/widget')
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: constants.FIND_ALL_WIDGETS,
-            widgets: widgets }))
+            widgets: widgets,
+            topicId: topicId}))
 }
 
 export const addWidget = dispatch =>{
@@ -14,12 +15,12 @@ export const addWidget = dispatch =>{
 
 
 
-export const save = dispatch => {
-    dispatch({type: constants.SAVE_ITEMS})
+export const save = (dispatch, topicId) => {
+    dispatch({type: constants.SAVE_WIDGETS, topicId: topicId})
 }
 
-export const preview = dispatch => {
-    dispatch({type: constants.PREVIEW})
+export const preview = (dispatch, topicId) => {
+    dispatch({type: constants.PREVIEW, topicId: topicId})
 }
 
 
@@ -36,3 +37,13 @@ export const headingTextChanged = (dispatch, widgetId, newText) =>{
         id:widgetId,
         text:newText})
 }
+
+export const widgetNameChanged = (dispatch, widgetId, newName) => (
+    dispatch(
+        {
+            type: constants.WIDGET_NAME_CHANGED,
+            id: widgetId,
+            widgetName: newName
+        }
+    )
+)
